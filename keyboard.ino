@@ -22,7 +22,6 @@ enum Layer {
 };
 
 Layer currentLayer = BASE;
-printf("Current Layer: Base");
 unsigned long lastInputTime = 0;
 bool shiftActive = false;
 
@@ -52,6 +51,7 @@ void setup() {
   ss.setGPIOInterrupts(button_mask, 1);
 
   Keyboard.begin();
+  Serial.println("Current Layer: Base");
 }
 
 int last_x = 0, last_y = 0;
@@ -138,10 +138,10 @@ void handleInput(String direction) {
     case BASE:
       if (direction == "Up") {
         currentLayer = LAYER_A_G;
-        printf("Current Layer: A-G");
+        Serial.println("Current Layer: A-G");
       } else if (direction == "Down-Left") {
         shiftActive = true; // Activate Shift toggle
-        printf("Shift Activated");
+        Serial.println("Shift Activated");
       }
       // Handle other directions in the base layer if needed
       break;
@@ -157,7 +157,7 @@ void handleInput(String direction) {
         sendKey('G');
       } else if (direction == "Down") {
         currentLayer = BASE;
-        printf("Current Layer: Base");
+        Serial.println("Current Layer: Base");
       } else if (direction == "Down-Left") {
         sendKey('A');
       } else if (direction == "Left") {
@@ -188,5 +188,5 @@ void sendKey(char key) {
     delay(100);
     Keyboard.release(key);
   }
-  printf("Letter pressed");
+  Serial.println("Letter pressed");
 }
