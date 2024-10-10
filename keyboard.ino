@@ -163,7 +163,7 @@ void handleInput(String direction) {
       } else if (direction == "Left") {
         sendKey('B');
       } else if (direction == "Up-Left") {
-        SendKey('C');
+        sendKey('C');
          // Go back to base layer
       }
       break;
