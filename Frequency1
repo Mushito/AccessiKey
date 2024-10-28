@@ -1,0 +1,357 @@
+#include <Keyboard.h>
+
+const int threshold = 30;
+const unsigned long debounceDelay = 200;
+unsigned long lastInputTime = 0;
+
+enum Direction {
+  CENTER,
+  UP,
+  UP_RIGHT,
+  RIGHT,
+  DOWN_RIGHT,
+  DOWN,
+  DOWN_LEFT,
+  LEFT,
+  UP_LEFT
+};
+
+enum Layer {
+  BASE,
+  LAYER_1,
+  LAYER_2,
+  LAYER_3,
+  LAYER_4,
+  LAYER_5,
+  LAYER_MODIFIERS
+};
+
+bool shiftActive = false;
+bool capsLock = false;
+
+Layer currentLayer = BASE;
+
+void setup() {
+  Serial.begin(9600);
+}
+
+void loop() {
+  delay(10);
+  
+  int x = analogRead(A1) - 490;
+  int y = analogRead(A0) - 500;
+
+  double xOffset = (x/10) - 5.12;
+  double yOffset = (y/10) - 5.12;
+  
+  double magnitude = sqrt((xOffset * xOffset) + (yOffset * yOffset));
+
+  if (magnitude > threshold && (millis() - lastInputTime) > debounceDelay) {
+    float angle = atan2(yOffset, xOffset) * (180.0 / PI);
+    if (angle < 0) {
+      angle += 360.0;
+    }
+
+    Direction direction = getDirection(angle, magnitude);
+
+    handleInput(direction);
+    
+    lastInputTime = millis();
+  }
+}
+
+
+Direction getDirection(float angle, int magnitude) {
+  if (magnitude < threshold) {
+    return CENTER;
+  }
+  if (angle >= 67.5 && angle < 112.5) {
+    return UP;
+  } else if (angle >= 22.5 && angle < 67.5) {
+    return UP_RIGHT;
+  } else if (angle >= 337.5 || angle < 22.5) {
+    return RIGHT;
+  } else if (angle >= 292.5 && angle < 337.5) {
+    return DOWN_RIGHT;
+  } else if (angle >= 247.5 && angle < 292.5) {
+    return DOWN;
+  } else if (angle >= 202.5 && angle < 247.5) {
+    return DOWN_LEFT;
+  } else if (angle >= 157.5 && angle < 202.5) {
+    return LEFT;
+  } else if (angle >= 112.5 && angle < 157.5) {
+    return UP_LEFT;
+  }
+  return CENTER;
+}
+
+String directionToString(Direction dir) {
+  switch (dir) {
+    case CENTER:     return "Center";
+    case UP:         return "Up";
+    case UP_RIGHT:   return "Up-Right";
+    case RIGHT:      return "Right";
+    case DOWN_RIGHT: return "Down-Right";
+    case DOWN:       return "Down";
+    case DOWN_LEFT:  return "Down-Left";
+    case LEFT:       return "Left";
+    case UP_LEFT:    return "Up-Left";
+    default:         return "Unknown";
+  }
+}
+
+void handleInput(Direction direction) {
+  switch (currentLayer) {
+    case BASE:
+      switch (direction) {
+        case UP:
+          currentLayer = LAYER_1;
+          Serial.println("Current Layer: 1");
+          break;
+        case UP_RIGHT:
+          currentLayer = LAYER_2;
+          Serial.println("Current Layer: 2");
+          break;
+        case RIGHT:
+          currentLayer = LAYER_3;
+          Serial.println("Current Layer: 3");
+          break;
+        case DOWN_RIGHT:
+          currentLayer = LAYER_4;
+          Serial.println("Current Layer: 4");
+          break;
+        case DOWN:
+          currentLayer = LAYER_5;
+          Serial.println("Current Layer: 5");
+          break;
+        case DOWN_LEFT:
+          currentLayer = LAYER_MODIFIERS;
+          Serial.println("Current Layer: MODIFIERS");
+          break;
+        default:
+          // Handle CENTER or other directions if needed
+          break;
+      }
+      break;
+
+    case LAYER_1:
+      switch (direction) {
+        case DOWN_LEFT:
+          sendKey('n');
+          break;
+        case LEFT:
+          sendKey('t');
+          break;
+        case UP_LEFT:
+          sendKey('o');
+          break;
+        case UP:
+          sendKey('e');
+          break;
+        case UP_RIGHT:
+          sendKey('i');
+          break;
+        case RIGHT:
+          sendKey('a');
+          break;
+        case DOWN_RIGHT:
+          sendKey('s');
+          break;
+        case DOWN:
+          currentLayer = BASE;
+          Serial.println("Current Layer: Base");
+          break;
+        default:
+          break;
+      }
+      break;
+
+    case LAYER_2:
+      switch (direction) {
+        case DOWN_LEFT:
+          sendKey('u');
+          break;
+        case LEFT:
+          sendKey('r');
+          break;
+        case UP_LEFT:
+          sendKey('l');
+          break;
+        case UP:
+          sendKey('h');
+          break;
+        case UP_RIGHT:
+          sendKey('c');
+          break;
+        case RIGHT:
+          sendKey('d');
+          break;
+        case DOWN_RIGHT:
+          sendKey('m');
+          break;
+        case DOWN:
+          currentLayer = BASE;
+          Serial.println("Current Layer: Base");
+          break;
+        default:
+          break;
+      }
+      break;
+      
+    case LAYER_3:
+      switch (direction) {
+        case DOWN_LEFT:
+          sendKey('b');
+          break;
+        case LEFT:
+          sendKey('f');
+          break;
+        case UP_LEFT:
+          sendKey('y');
+          break;
+        case UP:
+          sendKey('w');
+          break;
+        case UP_RIGHT:
+          sendKey('p');
+          break;
+        case RIGHT:
+          sendKey('g');
+          break;
+        case DOWN_RIGHT:
+          sendKey('v');
+          break;
+        case DOWN:
+          currentLayer = BASE;
+          Serial.println("Current Layer: Base");
+          break;
+        default:
+          break;
+      }
+      break;
+      
+    case LAYER_4:
+      switch (direction) {
+        case DOWN_LEFT:
+          sendKey('x');
+          break;
+        case LEFT:
+          sendKey('j');
+          break;
+        case UP_LEFT:
+          sendKey('q');
+          break;
+        case UP:
+          sendKey('k');
+          break;
+        case UP_RIGHT:
+          sendKey('z');
+          break;
+        case RIGHT:
+          sendKey('1');
+          break;
+        case DOWN_RIGHT:
+          sendKey('2');
+          break;
+        case DOWN:
+          currentLayer = BASE;
+          Serial.println("Current Layer: Base");
+          break;
+        default:
+          break;
+
+      }
+      break;
+
+    case LAYER_5:
+      switch (direction) {
+        case DOWN_LEFT:
+          sendKey('3');
+          break;
+        case LEFT:
+          sendKey('4');
+          break;
+        case UP_LEFT:
+          sendKey('5');
+          break;
+        case UP:
+          sendKey('6');
+          break;
+        case UP_RIGHT:
+          sendKey('7');
+          break;
+        case RIGHT:
+          sendKey('8');
+          break;
+        case DOWN_RIGHT:
+          sendKey('9');
+          break;
+        case DOWN:
+          currentLayer = BASE;
+          Serial.println("Current Layer: Base");
+          break;
+        default:
+          break;
+
+      }
+    case LAYER_MODIFIERS:
+      switch (direction) {
+        case DOWN_LEFT:
+          sendSpecialKey(KEY_BACKSPACE);
+          break;
+        case LEFT:
+          shiftActive = true;
+          Serial.println("Shift Activated");
+          break;
+        case UP_LEFT:
+          Serial.println("NOT DECLARED");
+          break;
+        case UP:
+          sendKey(' ');
+          break;
+        case UP_RIGHT:
+          Serial.println("NOT DECLARED");
+          break;
+        case RIGHT:
+          Serial.println("NOT DECLARED");
+          break;
+        case DOWN_RIGHT:
+          Serial.println("NOT DECLARED");
+          break;
+        case DOWN:
+          currentLayer = BASE;
+          break;
+        default:
+          break;
+
+      }
+      break;
+   
+    default:
+      currentLayer = BASE;                 
+      break;
+  }
+}
+
+void sendKey(char key) {
+  if (shiftActive || capsLock) {
+    Keyboard.press(KEY_LEFT_SHIFT);
+    Keyboard.press(key);
+    delay(50);
+    Keyboard.releaseAll();
+    if (shiftActive) {
+      Serial.println("Shift deactivated");
+      shiftActive = false; // Turn off Shift after one key
+    }
+  } else {
+    Keyboard.press(key);
+    delay(50);
+    Keyboard.release(key);
+  }
+}
+
+void sendSpecialKey(uint8_t keycode) {
+  Keyboard.press(keycode);
+  delay(100);
+  Keyboard.release(keycode);
+}
