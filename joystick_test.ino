@@ -293,7 +293,6 @@ void handleInput(Direction direction) {
           break;
         case DOWN:
           currentLayer = BASE;
-          Serial.println("Current Layer: Base");
           break;
         default:
           break;
