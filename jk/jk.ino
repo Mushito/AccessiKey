@@ -2,7 +2,6 @@
 #include <SPI.h>
 #include "LCD_Driver.h"
 #include "GUI_Paint.h"
-#include "image.h"
 
 const int threshold = 30;
 const unsigned long debounceDelay = 200;
@@ -38,6 +37,14 @@ Layer currentLayer = BASE;
 
 void setup() {
   Serial.begin(9600);
+
+  Config_Init();
+  LCD_Init();
+  LCD_Clear(0xffff);
+  Paint_NewImage(LCD_WIDTH, LCD_HEIGHT, 90, WHITE);
+  Paint_Clear(WHITE);
+  Paint_SetMirroring(MIRROR_HORIZONTAL);
+  draw_circle;
   draw_BASE();
 }
 
@@ -109,7 +116,6 @@ String directionToString(Direction dir) {
 void handleInput(Direction direction) {
   switch (currentLayer) {
     case BASE:
-    draw_BASE();
       switch (direction) {
         case UP:
           draw_A_G();
@@ -382,10 +388,7 @@ void sendSpecialKey(uint8_t keycode) {
 void draw_circle()
 {
   LCD_Clear(0xffff);
-  Paint_NewImage(LCD_WIDTH, LCD_HEIGHT, 90, WHITE);
   Paint_Clear(WHITE);
-
-  Paint_SetMirroring(MIRROR_HORIZONTAL);
 
   Paint_DrawCircle(160, 120, 40, BLACK, 2, 0);
 
@@ -407,9 +410,9 @@ void draw_BASE()
   Paint_DrawString_EN(140, 190, "3-9", &Font20, WHITE, BLACK);
   Paint_DrawString_EN(155, 40, "A-G", &Font20, WHITE, BLACK);
   Paint_DrawString_EN(225, 115, "O-U", &Font20, WHITE, BLACK);
-  Paint_DrawString_EN(75, 115, "MOD", &Font20, WHITE, BLACK);
-  Paint_DrawString_EN(100, 170, "N/A", &Font20, WHITE, BLACK);
-  Paint_DrawString_EN(95, 55, "N/A", &Font20, WHITE, BLACK); 
+  Paint_DrawString_EN(70, 110, "MOD", &Font20, WHITE, BLACK);
+  Paint_DrawString_EN(80, 170, "N/A", &Font20, WHITE, BLACK);
+  Paint_DrawString_EN(80, 55, "N/A", &Font20, WHITE, BLACK); 
   Paint_DrawString_EN(210, 170, "V-2", &Font20, WHITE, BLACK);       
   Paint_DrawString_EN(210, 60, "H-N", &Font20, WHITE, BLACK);  
 }
