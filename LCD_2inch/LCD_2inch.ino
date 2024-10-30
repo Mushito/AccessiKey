@@ -8,35 +8,27 @@ void setup()
   Config_Init();
   LCD_Init();
   LCD_Clear(0xffff);
-  Paint_NewImage(LCD_WIDTH, LCD_HEIGHT, 0, WHITE);
+  Paint_NewImage(LCD_HEIGHT, LCD_WIDTH, 90, WHITE);  // Width and height swapped
   Paint_Clear(WHITE);
-  Paint_DrawString_EN(30, 10, "123", &Font24, YELLOW, RED);
-  Paint_DrawString_EN(30, 34, "ABC", &Font24, BLUE, CYAN);
-  
-  Paint_DrawString_CN(50,180, "微雪电子",  &Font24CN, WHITE, RED);
-  
-  Paint_DrawRectangle(125, 10, 225, 58, RED,  DOT_PIXEL_2X2,DRAW_FILL_EMPTY);
-  Paint_DrawLine(125, 10, 225, 58, MAGENTA,   DOT_PIXEL_2X2,LINE_STYLE_SOLID);
-  Paint_DrawLine(225, 10, 125, 58, MAGENTA,   DOT_PIXEL_2X2,LINE_STYLE_SOLID);
-  
-  Paint_DrawCircle(150,100, 25, BLUE,   DOT_PIXEL_2X2,   DRAW_FILL_EMPTY);
-  Paint_DrawCircle(180,100, 25, BLACK,  DOT_PIXEL_2X2,   DRAW_FILL_EMPTY);
-  Paint_DrawCircle(210,100, 25, RED,    DOT_PIXEL_2X2,   DRAW_FILL_EMPTY);
-  Paint_DrawCircle(165,125, 25, YELLOW, DOT_PIXEL_2X2,   DRAW_FILL_EMPTY);
-  Paint_DrawCircle(195,125, 25, GREEN,  DOT_PIXEL_2X2,   DRAW_FILL_EMPTY);
-  
-  
+  Paint_DrawCircle(160, 120, 40, BLACK, 2, 0);  // Swapped x and y values
 
-  Paint_DrawImage(gImage_70X70, 20, 80, 70, 70); 
-  //Paint_DrawFloatNum (5, 150 ,987.654321,4,  &Font20,    WHITE,   LIGHTGREEN);
+  Paint_DrawLine(200, 120, 220, 120, BLACK, 2, LINE_STYLE_SOLID);  // Top line
+  Paint_DrawLine(120, 120, 100, 120, BLACK, 2, LINE_STYLE_SOLID);  // Bottom line
+  Paint_DrawLine(160, 80, 160, 60, BLACK, 2, LINE_STYLE_SOLID);    // Left line
+  Paint_DrawLine(160, 160, 160, 180, BLACK, 2, LINE_STYLE_SOLID);  // Right line
 
+  Paint_DrawLine(130, 90, 110, 70, BLACK, 2, LINE_STYLE_SOLID);    // Top-left diagonal
+  Paint_DrawLine(130, 150, 110, 170, BLACK, 2, LINE_STYLE_SOLID);  // Top-right diagonal
+  Paint_DrawLine(190, 90, 210, 70, BLACK, 2, LINE_STYLE_SOLID);    // Bottom-left diagonal
+  Paint_DrawLine(190, 150, 210, 170, BLACK, 2, LINE_STYLE_SOLID);  // Bottom-right diagonal
+
+  Paint_DrawString_EN(210, 120, "A", &Font20, WHITE, BLACK);  // Swapped x and y values
 }
+
 void loop()
 {
   
 }
-
-
 
 /*********************************************************************************************************
   END FILE
