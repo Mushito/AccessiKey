@@ -47,7 +47,7 @@
 /**
  * GPIO config
 **/
-#define DEV_CS_PIN  10
+#define DEV_CS_PIN  17
 #define DEV_DC_PIN  7
 #define DEV_RST_PIN 8
 #define DEV_BL_PIN  9
