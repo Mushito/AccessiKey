@@ -44,13 +44,11 @@ void setup() {
   Paint_NewImage(LCD_WIDTH, LCD_HEIGHT, 90, WHITE);
   Paint_Clear(WHITE);
   Paint_SetMirroring(MIRROR_HORIZONTAL);
-  draw_circle;
+  draw_circle();
   draw_BASE();
 }
 
-void loop() {
-  delay(10);
-  
+void loop() {  
   int x = analogRead(A1) - 490;
   int y = analogRead(A0) - 500;
 
@@ -118,35 +116,42 @@ void handleInput(Direction direction) {
     case BASE:
       switch (direction) {
         case UP:
+          clw();
           draw_A_G();
           currentLayer = LAYER_A_G;
           Serial.println("Current Layer: A-G");
           break;
         case UP_RIGHT:
+          clw();
           draw_H_N();
           currentLayer = LAYER_H_N;
           Serial.println("Current Layer: H-N");
           break;
         case RIGHT:
+          clw();
           draw_O_U();
           currentLayer = LAYER_O_U;
           Serial.println("Current Layer: O-U");
           break;
         case DOWN_RIGHT:
+          clw();
           draw_V_2();
           currentLayer = LAYER_V_2;
           Serial.println("Current Layer: V-2");
           break;
         case DOWN:
+          clw();
           draw_3_9();
           currentLayer = LAYER_3_9;
           Serial.println("Current Layer: 3-9");
           break;
         case DOWN_LEFT:
+          clw();
           currentLayer = LAYER_FNS1;
           Serial.println("Current Layer: FUNCTIONS-1");
           break;
         case LEFT:
+          clw();
           draw_MODS();
           currentLayer = LAYER_MODIFIERS;
           Serial.println("Current Layer: MODIFIERS");
@@ -356,6 +361,7 @@ void handleInput(Direction direction) {
       break;
 
     default:
+      clw();
       currentLayer = BASE;
       draw_BASE();
       break;
@@ -387,7 +393,6 @@ void sendSpecialKey(uint8_t keycode) {
 
 void draw_circle()
 {
-  LCD_Clear(0xffff);
   Paint_Clear(WHITE);
 
   Paint_DrawCircle(160, 120, 40, BLACK, 2, 0);
@@ -404,22 +409,33 @@ void draw_circle()
 
 }
 
+//void LCD_ClearWindow(UWORD Ystart, UWORD Xstart, UWORD Xend, UWORD Yend,UWORD color)
+void clw() {
+  LCD_ClearWindow(110, 50, 130, 100, WHITE);   // Left
+  LCD_ClearWindow(50, 80, 70, 125, WHITE);    // Up-Left
+  LCD_ClearWindow(175, 80, 195, 125, WHITE);  // Down-Left
+  LCD_ClearWindow(40, 145, 55, 190, WHITE);   // Up
+  LCD_ClearWindow(190, 140, 210, 195, WHITE); // Down
+  LCD_ClearWindow(50, 210, 70, 255, WHITE);   // Up-Right
+  LCD_ClearWindow(170, 210, 190, 250, WHITE); // Down-Right
+  LCD_ClearWindow(110, 220, 130, 270, WHITE); // Right
+}
+
 void draw_BASE()
 {
-  draw_circle();
+  clw();
   Paint_DrawString_EN(140, 190, "3-9", &Font20, WHITE, BLACK);
-  Paint_DrawString_EN(155, 40, "A-G", &Font20, WHITE, BLACK);
+  Paint_DrawString_EN(145, 40, "A-G", &Font20, WHITE, BLACK);
   Paint_DrawString_EN(225, 115, "O-U", &Font20, WHITE, BLACK);
-  Paint_DrawString_EN(70, 110, "MOD", &Font20, WHITE, BLACK);
-  Paint_DrawString_EN(80, 170, "N/A", &Font20, WHITE, BLACK);
-  Paint_DrawString_EN(80, 55, "N/A", &Font20, WHITE, BLACK); 
+  Paint_DrawString_EN(55, 110, "MOD", &Font20, WHITE, BLACK);
+  Paint_DrawString_EN(80, 175, "N/A", &Font20, WHITE, BLACK);
+  Paint_DrawString_EN(80, 52, "N/A", &Font20, WHITE, BLACK); 
   Paint_DrawString_EN(210, 170, "V-2", &Font20, WHITE, BLACK);       
-  Paint_DrawString_EN(210, 60, "H-N", &Font20, WHITE, BLACK);  
+  Paint_DrawString_EN(210, 52, "H-N", &Font20, WHITE, BLACK); 
 }
 
 void draw_A_G()
 {
-  draw_circle();
   Paint_DrawString_EN(100, 170, "A", &Font20, WHITE, BLACK);
   Paint_DrawString_EN(75, 115, "B", &Font20, WHITE, BLACK);
   Paint_DrawString_EN(95, 55, "C", &Font20, WHITE, BLACK);
@@ -432,7 +448,6 @@ void draw_A_G()
 
 void draw_H_N()
 {
-  draw_circle();
   Paint_DrawString_EN(100, 170, "H", &Font20, WHITE, BLACK);
   Paint_DrawString_EN(75, 115, "I", &Font20, WHITE, BLACK);
   Paint_DrawString_EN(95, 55, "J", &Font20, WHITE, BLACK);
@@ -445,7 +460,6 @@ void draw_H_N()
 
 void draw_O_U()
 {
-  draw_circle();
   Paint_DrawString_EN(100, 170, "O", &Font20, WHITE, BLACK);
   Paint_DrawString_EN(75, 115, "P", &Font20, WHITE, BLACK);
   Paint_DrawString_EN(95, 55, "Q", &Font20, WHITE, BLACK);
@@ -458,7 +472,6 @@ void draw_O_U()
 
 void draw_V_2()
 {
-  draw_circle();
   Paint_DrawString_EN(100, 170, "V", &Font20, WHITE, BLACK);
   Paint_DrawString_EN(75, 115, "W", &Font20, WHITE, BLACK);
   Paint_DrawString_EN(95, 55, "X", &Font20, WHITE, BLACK);
@@ -471,7 +484,6 @@ void draw_V_2()
 
 void draw_3_9()
 {
-  draw_circle();
   Paint_DrawString_EN(100, 170, "3", &Font20, WHITE, BLACK);
   Paint_DrawString_EN(75, 115, "4", &Font20, WHITE, BLACK);
   Paint_DrawString_EN(95, 55, "5", &Font20, WHITE, BLACK);
@@ -484,11 +496,10 @@ void draw_3_9()
 
 void draw_MODS()
 {
-  draw_circle();
   Paint_DrawString_EN(100, 170, "H", &Font20, WHITE, BLACK);
   Paint_DrawString_EN(75, 115, "I", &Font20, WHITE, BLACK);
   Paint_DrawString_EN(95, 55, "J", &Font20, WHITE, BLACK);
-  Paint_DrawString_EN(155, 40, "SPACE", &Font20, WHITE, BLACK);
+  Paint_DrawString_EN(150, 40, "SP", &Font20, WHITE, BLACK);
   Paint_DrawString_EN(210, 60, "L", &Font20, WHITE, BLACK);
   Paint_DrawString_EN(225, 115, "M", &Font20, WHITE, BLACK); 
   Paint_DrawString_EN(210, 170, "N", &Font20, WHITE, BLACK);       
