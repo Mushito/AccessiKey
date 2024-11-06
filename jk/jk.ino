@@ -344,7 +344,7 @@ void handleInput(Direction direction) {
           Serial.println("NOT DECLARED");
           break;
         case RIGHT:
-          Serial.println("NOT DECLARED");
+          sendSpecialKey(KEY_RETURN);
           break;
         case DOWN_RIGHT:
           Serial.println("NOT DECLARED");
@@ -436,11 +436,11 @@ void draw_BASE()
 
 void draw_A_G()
 {
-  Paint_DrawString_EN(100, 170, "A", &Font20, WHITE, BLACK);
+  Paint_DrawString_EN(100, 173, "A", &Font20, WHITE, BLACK);
   Paint_DrawString_EN(75, 115, "B", &Font20, WHITE, BLACK);
   Paint_DrawString_EN(95, 55, "C", &Font20, WHITE, BLACK);
   Paint_DrawString_EN(155, 40, "D", &Font20, WHITE, BLACK);
-  Paint_DrawString_EN(210, 60, "E", &Font20, WHITE, BLACK);
+  Paint_DrawString_EN(212, 55, "E", &Font20, WHITE, BLACK);
   Paint_DrawString_EN(225, 115, "F", &Font20, WHITE, BLACK); 
   Paint_DrawString_EN(210, 170, "G", &Font20, WHITE, BLACK);       
   Paint_DrawString_EN(140, 190, "BASE", &Font20, WHITE, BLACK);
@@ -448,11 +448,11 @@ void draw_A_G()
 
 void draw_H_N()
 {
-  Paint_DrawString_EN(100, 170, "H", &Font20, WHITE, BLACK);
+  Paint_DrawString_EN(100, 173, "H", &Font20, WHITE, BLACK);
   Paint_DrawString_EN(75, 115, "I", &Font20, WHITE, BLACK);
   Paint_DrawString_EN(95, 55, "J", &Font20, WHITE, BLACK);
   Paint_DrawString_EN(155, 40, "K", &Font20, WHITE, BLACK);
-  Paint_DrawString_EN(210, 60, "L", &Font20, WHITE, BLACK);
+  Paint_DrawString_EN(210, 55, "L", &Font20, WHITE, BLACK);
   Paint_DrawString_EN(225, 115, "M", &Font20, WHITE, BLACK); 
   Paint_DrawString_EN(210, 170, "N", &Font20, WHITE, BLACK);       
   Paint_DrawString_EN(140, 190, "BASE", &Font20, WHITE, BLACK);  
@@ -460,11 +460,11 @@ void draw_H_N()
 
 void draw_O_U()
 {
-  Paint_DrawString_EN(100, 170, "O", &Font20, WHITE, BLACK);
+  Paint_DrawString_EN(100, 175, "O", &Font20, WHITE, BLACK);
   Paint_DrawString_EN(75, 115, "P", &Font20, WHITE, BLACK);
-  Paint_DrawString_EN(95, 55, "Q", &Font20, WHITE, BLACK);
+  Paint_DrawString_EN(97, 52, "Q", &Font20, WHITE, BLACK);
   Paint_DrawString_EN(155, 40, "R", &Font20, WHITE, BLACK);
-  Paint_DrawString_EN(210, 60, "S", &Font20, WHITE, BLACK);
+  Paint_DrawString_EN(210, 55, "S", &Font20, WHITE, BLACK);
   Paint_DrawString_EN(225, 115, "T", &Font20, WHITE, BLACK); 
   Paint_DrawString_EN(210, 170, "U", &Font20, WHITE, BLACK);       
   Paint_DrawString_EN(140, 190, "BASE", &Font20, WHITE, BLACK);  
@@ -472,11 +472,11 @@ void draw_O_U()
 
 void draw_V_2()
 {
-  Paint_DrawString_EN(100, 170, "V", &Font20, WHITE, BLACK);
+  Paint_DrawString_EN(95, 174, "V", &Font20, WHITE, BLACK);
   Paint_DrawString_EN(75, 115, "W", &Font20, WHITE, BLACK);
   Paint_DrawString_EN(95, 55, "X", &Font20, WHITE, BLACK);
   Paint_DrawString_EN(155, 40, "Y", &Font20, WHITE, BLACK);
-  Paint_DrawString_EN(210, 60, "Z", &Font20, WHITE, BLACK);
+  Paint_DrawString_EN(210, 55, "Z", &Font20, WHITE, BLACK);
   Paint_DrawString_EN(225, 115, "1", &Font20, WHITE, BLACK); 
   Paint_DrawString_EN(210, 170, "2", &Font20, WHITE, BLACK);       
   Paint_DrawString_EN(140, 190, "BASE", &Font20, WHITE, BLACK);  
@@ -484,11 +484,11 @@ void draw_V_2()
 
 void draw_3_9()
 {
-  Paint_DrawString_EN(100, 170, "3", &Font20, WHITE, BLACK);
+  Paint_DrawString_EN(95, 174, "3", &Font20, WHITE, BLACK);
   Paint_DrawString_EN(75, 115, "4", &Font20, WHITE, BLACK);
   Paint_DrawString_EN(95, 55, "5", &Font20, WHITE, BLACK);
   Paint_DrawString_EN(155, 40, "6", &Font20, WHITE, BLACK);
-  Paint_DrawString_EN(210, 60, "7", &Font20, WHITE, BLACK);
+  Paint_DrawString_EN(210, 55, "7", &Font20, WHITE, BLACK);
   Paint_DrawString_EN(225, 115, "8", &Font20, WHITE, BLACK); 
   Paint_DrawString_EN(210, 170, "9", &Font20, WHITE, BLACK);       
   Paint_DrawString_EN(140, 190, "BASE", &Font20, WHITE, BLACK);  
@@ -496,12 +496,8 @@ void draw_3_9()
 
 void draw_MODS()
 {
-  Paint_DrawString_EN(100, 170, "H", &Font20, WHITE, BLACK);
-  Paint_DrawString_EN(75, 115, "I", &Font20, WHITE, BLACK);
-  Paint_DrawString_EN(95, 55, "J", &Font20, WHITE, BLACK);
-  Paint_DrawString_EN(150, 40, "SP", &Font20, WHITE, BLACK);
-  Paint_DrawString_EN(210, 60, "L", &Font20, WHITE, BLACK);
-  Paint_DrawString_EN(225, 115, "M", &Font20, WHITE, BLACK); 
-  Paint_DrawString_EN(210, 170, "N", &Font20, WHITE, BLACK);       
-  Paint_DrawString_EN(140, 190, "BASE", &Font20, WHITE, BLACK);  
+  Paint_DrawString_EN(83, 173, "BCK", &Font20, WHITE, BLACK);
+  Paint_DrawString_EN(150, 40, "SP", &Font20, WHITE, BLACK);      
+  Paint_DrawString_EN(140, 190, "BASE", &Font20, WHITE, BLACK);
+  Paint_DrawString_EN(225, 115, "ENT", &Font20, WHITE, BLACK); 
 }
